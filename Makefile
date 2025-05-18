@@ -1,4 +1,4 @@
-SRCS = main.c extra_lib.c tokenizer.c
+SRCS = main.c extra_lib.c lexical_analysis.c token_stream.c
 OBJS = ${SRCS:.c=.o}
 NAME = minishell
 LIBC = ar rcs
