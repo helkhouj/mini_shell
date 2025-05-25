@@ -1,18 +1,19 @@
-SRCS = main.c extra_lib.c lexical_analysis.c token_stream.c
+SRCS = extra_lib.c lexical_analysis.c token_stream.c parse_cmd.c parse_input.c frees.c parse_redir.c parse_pipeline.c main.c
 OBJS = ${SRCS:.c=.o}
 NAME = minishell
-LIBC = ar rcs
+LIBC = ar rcs # This line is not used in your current setup, but harmless.
 CC = cc
 RM = rm -rf
-#FLAGS = -Wall -Wextra -Werror uncomment this and add it in %.o = %.c
+CFLAGS = -Wall -Wextra -Werror
+LDFLAGS = -lreadline -lhistory
 
 all: ${NAME}
 
 ${NAME}: ${OBJS}
-	$(CC) ${OBJS} -o ${NAME}
+	$(CC) $(CFLAGS) ${OBJS} $(LDFLAGS) -o ${NAME}
 
 %.o: %.c
-	$(CC) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	${RM} ${OBJS}

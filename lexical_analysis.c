@@ -105,7 +105,6 @@ static int add_token(t_token ***tokens_ptr, size_t *count, t_token_type type, ch
         (*tokens_ptr)[(*count)++] = new_token;
     else
     {
-        printf("Token array FULL, need to reallocate.\n");
         free_single_token(new_token);
         free(*tokens_ptr);
         *tokens_ptr = NULL;
@@ -116,7 +115,9 @@ static int add_token(t_token ***tokens_ptr, size_t *count, t_token_type type, ch
 
 static char *process_current_char(char *args, size_t *i, t_token_type *type)
 {
-    char *token_value = NULL;
+    char *token_value;
+
+    token_value = NULL;
     if (args[*i] == '\'' || args[*i] == '"')
         {
             *type = TOKEN_WORD;
@@ -172,96 +173,3 @@ void free_token_array(t_token **tokens, int count)
         free_single_token(tokens[i]);
    free(tokens);
 }
-
-
-//original tokenizer
-// t_token **tokenizer(char *args)
-// {
-//     size_t i = 0;
-//     size_t token_count = 0;
-//     t_token **tokens = malloc (1024 * sizeof(t_token *));
-//     char *token_value = NULL;
-//     t_token_type token_type = TOKEN_ERROR;
-
-//     if (!tokens)
-//         return (NULL);
-//     while (args[i])
-//     {
-//         while (args[i] && is_space(args[i]))
-//             i++;
-//         if (!args[i])
-//             break ;
-//         if (args[i] == '\'' || args[i] == '"')
-//             {
-//                 token_type = TOKEN_WORD;
-//                 token_value = extract_word(args, &i);
-//                 //will need to remove quote and expansion later
-//             }
-//         else if (is_op(args[i]))
-//             {
-//                 token_value = extract_op(args, &i);
-//                 if (token_value && ft_strlen(token_value) == 1)
-//                     {
-//                         if (token_value[0] == '|') token_type = TOKEN_PIPE;
-//                         else if(token_value[0] == '<') token_type = TOKEN_RED_IN;
-//                         else if (token_value[0] == '>') token_type = TOKEN_RED_OUT;
-//                         else token_type = TOKEN_ERROR;
-//                     }
-//                 else if (token_value && ft_strlen(token_value) == 2)
-//                     {
-//                         if (token_value[0] == '>' && token_value[1] == '>') token_type = TOKEN_RED_APPEND;
-//                         else if (token_value[0] == '<' && token_value[1] == '<') token_type = TOKEN_RED_HEREDOC;
-//                         else token_type = TOKEN_ERROR;
-//                     }
-//                 else
-//                     token_type = TOKEN_ERROR; //should not happened
-
-//                 if (!token_value) //hundle malloc fail from extract_op
-//                     {
-//                         free(tokens);
-//                         return (NULL);
-//                     }
-//             }
-//         else //must be a word
-//         {
-//             token_type = TOKEN_WORD;
-//             token_value = extract_word(args, &i);
-//             if (!token_value)
-//                 {
-//                     free(tokens);
-//                     return (NULL);
-//                 }
-//         }
-
-//         t_token *new_token = create_token(token_type, token_value);
-//         if (!new_token)
-//             {
-//                 free(tokens);
-//                 return (NULL);
-//             }
-//         if (token_count < 1023)
-//                 tokens[token_count++] = new_token;
-//         else
-//         {
-//             printf("Token array FULL, need to reallocate\n");
-//             free(tokens);
-//             return (NULL);
-//         }
-//     }
-//     t_token *end_token = create_token(TOKEN_END_OF_INPUT, NULL);
-//     if (!end_token)
-//         {
-//             free(tokens);
-//             return (NULL);
-//         }
-//     if (token_count < 1024)
-//         tokens[token_count++] = end_token;
-//     else
-//     {
-//         printf("Token array FULL, cannot add END_OF_INPUT token.\n");
-//         free(tokens);
-//         return (NULL);
-//     }
-//     printf("Tokenization is complete. Generated %zu tokens. \n", token_count);
-//     return (tokens);
-// }
