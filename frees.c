@@ -36,3 +36,21 @@ void free_cmd_args(char **args)
     free(args);
 
 }
+
+void free_token_array(t_token **tokens, int count)
+{
+    if (!tokens)
+        return ;
+    for (int i = 0; i < count; i++)
+        free_single_token(tokens[i]);
+   free(tokens);
+}
+
+
+void free_single_token(t_token *token)
+{
+    if (!token)
+        return ;
+    free(token->value);
+    free(token);
+}

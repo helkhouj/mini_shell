@@ -66,6 +66,11 @@ size_t ft_strlen(const char *s);
 char *ft_strndup(const char *s, size_t n);
 char	*ft_strdup(const char *s);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
+int is_space(char c);
+int is_op(char c);
+char *extract_op(char *str, size_t *i);
+char *extract_quote(char *str, size_t *i);
+char *extract_word(char *str, size_t *i);
 t_token **tokenizer(char *args);
 void free_token_array(t_token **tokens, int count);
 t_token *consume_token(t_token_stream *stream);
@@ -80,6 +85,7 @@ void free_token_stream(t_token_stream *stream);
 t_ast *parse_input(t_token_stream *stream);
 t_token_stream *init_token_stream(t_token **token_array, int count);
 t_token *get_current_token(t_token_stream *stream);
+void free_single_token(t_token *token);
 
 
 
