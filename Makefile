@@ -1,13 +1,15 @@
-SRCS = extra_lib.c lexical_analysis.c token_stream.c parse_cmd.c parse_input.c frees.c parse_redir.c parse_pipeline.c main.c
+SRCS = extra_lib.c frees.c lexical_analysis.c parse_cmd.c parse_input.c parse_pipeline.c parse_redir.c token_stream.c tokenizer_utils.c tester.c
 OBJS = ${SRCS:.c=.o}
 NAME = minishell
-LIBC = ar rcs # This line is not used in your current setup, but harmless.
+TEST_NAME = test_parser
+LIBC = ar rcs
 CC = cc
 RM = rm -rf
 CFLAGS = -Wall -Wextra -Werror
 LDFLAGS = -lreadline -lhistory
 
 all: ${NAME}
+
 
 ${NAME}: ${OBJS}
 	$(CC) $(CFLAGS) ${OBJS} $(LDFLAGS) -o ${NAME}
@@ -16,11 +18,11 @@ ${NAME}: ${OBJS}
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	${RM} ${OBJS}
+	${RM} ${OBJS} 
 
 fclean: clean
-	${RM} ${NAME}
+	${RM} ${NAME} 
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all test clean fclean re

@@ -102,6 +102,7 @@ t_token **tokenizer(char *args)
         if (!add_token(&tokens, &token_count, token_type, token_value)) return (NULL);
     }
     if (!add_token(&tokens, &token_count, TOKEN_END_OF_INPUT, NULL)) return (NULL);
+    tokens[token_count] = NULL;
     return (tokens);
 }
 
