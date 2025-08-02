@@ -28,6 +28,8 @@ static t_token_type get_op_type(char *value)
         {
             if (value[0] == '>' && value[1] == '>') return (TOKEN_RED_APPEND);
             if (value[0] == '<' && value[1] == '<') return (TOKEN_RED_HEREDOC);
+            if (value[0] == '|' && value[1] == '|') return (TOKEN_OR);
+            if (value[0] == '&' && value[1] == '&') return (TOKEN_AND);
         }
     return (TOKEN_ERROR);
 }

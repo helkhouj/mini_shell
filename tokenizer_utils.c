@@ -8,15 +8,19 @@ int is_space(char c)
 
 int is_op(char c)
 {
-    return (c == '|' || c == '<' || c == '>');
+    return (c == '|' || c == '<' || c == '>' || c == '&');
 }
 
-char *extract_op(char *str, size_t *i) //extracts an op token ( |, >, <, >>, <<)
+char *extract_op(char *str, size_t *i) //extracts an op token ( |, >, <, >>, <<, ||, &&)
 {
     size_t start = *i;
     if (str[*i] == '>' && str[*i + 1] == '>')
         *i += 2;
     else if (str[*i] == '<' && str[*i + 1] == '<')
+        *i += 2;
+    else if (str[*i] == '|' && str[*i + 1] == '|')
+        *i += 2;
+    else if (str[*i] == '&' && str[*i + 1] == '&')
         *i += 2;
     else
         (*i)++;

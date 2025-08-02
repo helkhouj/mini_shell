@@ -57,7 +57,7 @@ char	*ft_strdup(const char *s)
 }
 
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+void	*ft_memcpy(void *dest, void *src, size_t n)
 {
 	unsigned char	*d;
 	unsigned char	*s;

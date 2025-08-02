@@ -30,6 +30,8 @@ typedef enum e_token_type
     TOKEN_RED_OUT,
     TOKEN_RED_APPEND,
     TOKEN_RED_HEREDOC,
+    TOKEN_AND,
+    TOKEN_OR,
     TOKEN_END_OF_INPUT
 } t_token_type;
 
