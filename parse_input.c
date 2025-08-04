@@ -48,8 +48,6 @@ t_ast *create_empty_node()
 
 
 
-
-
 int peek_token_type(t_token_stream *stream, int offset, t_token_type type)
 {
     if (stream->current_index + offset >= stream->token_count)

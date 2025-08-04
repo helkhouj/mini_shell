@@ -60,6 +60,7 @@ static int add_token(t_token ***tokens_ptr, size_t *count, t_token_type type, ch
 static char *process_current_char(char *args, size_t *i, t_token_type *type)
 {
     char *token_value;
+    char *expanded_value;
 
     token_value = NULL;
     if (args[*i] == '\'' || args[*i] == '"')
@@ -82,6 +83,17 @@ static char *process_current_char(char *args, size_t *i, t_token_type *type)
         *type = TOKEN_WORD;
         token_value = extract_word(args,i);
     }
+    
+    if (*type == TOKEN_WORD && token_value)
+    {
+        expanded_value = expand_variables(token_value);
+        if (expanded_value)
+        {
+            free(token_value);
+            token_value = expanded_value;
+        }
+    }
+    
     return (token_value);
 }
 

@@ -22,14 +22,12 @@ t_ast *parse_cmd(t_token_stream *stream)
     cmd_name = ft_strdup(cmd_token->value);
     if (!cmd_name)
         return (NULL);
-
     args_rc = parse_args(stream, &args_from_parse_args);
     if (args_rc == -1)
     {
         free(cmd_name);
         return (NULL);
     }
-
     redirs = NULL;
     redir_rc = parse_redirection(stream, &redirs);
     if (redir_rc == -1)

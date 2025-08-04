@@ -4,11 +4,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <wait.h>
+#include <sys/wait.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <string.h>
 
-typedef enum e_node_type
+typedef enum e_node_type //there are for the nodes in the AST
 {
     NODE_EMPTY,
     NODE_COMMAND,
@@ -21,7 +22,7 @@ typedef enum e_node_type
     NODE_OR
 } t_node_type;
 
-typedef enum e_token_type
+typedef enum e_token_type //these are for the lexer during tokenization
 {
     TOKEN_ERROR,
     TOKEN_WORD,
@@ -67,7 +68,7 @@ typedef struct s_ast
 size_t ft_strlen(const char *s);
 char *ft_strndup(const char *s, size_t n);
 char	*ft_strdup(const char *s);
-void	*ft_memcpy(void *dest, const void *src, size_t n);
+void	*ft_memcpy(void *dest, void *src, size_t n);
 int is_space(char c);
 int is_op(char c);
 char *extract_op(char *str, size_t *i);
@@ -89,8 +90,7 @@ t_token_stream *init_token_stream(t_token **token_array, int count);
 t_token *get_current_token(t_token_stream *stream);
 void free_single_token(t_token *token);
 
-
-
-
+char *expand_variables(char *str);
+void set_exit_status(int status);
 
 #endif

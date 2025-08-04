@@ -29,13 +29,19 @@ char *extract_op(char *str, size_t *i) //extracts an op token ( |, >, <, >>, <<,
 
 char *extract_quote(char *str, size_t *i) //extracts single/double quotes ', "
 {
-    size_t start = *i;
-    char quote = str[(*i)++];
+    char quote;
+    size_t len;
+    size_t start;
+
+    quote = str[(*i)];
+    (*i)++;
+    start = *i;
     while(str[*i] && str[*i] != quote)
         (*i)++;
+    len = *i - start;
     if (str[*i] == quote)
         (*i)++;
-    return (ft_strndup(str + start, *i - start));
+    return (ft_strndup(str + start, len));
 }
 
 char *extract_word(char *str, size_t *i) //extracts the word
