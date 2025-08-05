@@ -73,7 +73,11 @@ int parse_args(t_token_stream *stream, char ***args)
     *args = malloc(capacity * sizeof(char *));
     if (!*args)
         return (-1);
-    while (peek_token_type(stream, 0, TOKEN_WORD))
+    while (peek_token_type(stream, 0, TOKEN_WORD) && 
+           !peek_token_type(stream, 1, TOKEN_RED_IN) &&
+           !peek_token_type(stream, 1, TOKEN_RED_OUT) &&
+           !peek_token_type(stream, 1, TOKEN_RED_APPEND) &&
+           !peek_token_type(stream, 1, TOKEN_RED_HEREDOC))
     {
         if (count >= capacity)
         {
@@ -125,9 +129,6 @@ t_ast *create_cmd_node(char **command_args, t_ast *redir)
     node->red_file = NULL;
     return (node);
 }
-
-
-
 
 char **assemble_cmd_args(char *cmd_name, char **args_list)
 {
